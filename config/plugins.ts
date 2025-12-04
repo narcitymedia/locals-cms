@@ -19,6 +19,7 @@ export default ({ env }) => ({
                         Bucket: env('AWS_BUCKET'),
                     },
                     forcePathStyle: true,
+                    signedUrlExpires: 60 * 60 * 24, // 24 hours
                 },
             },
             actionOptions: {
