@@ -8,6 +8,7 @@ export default ({ env }) => ({
         config: {
             provider: 'aws-s3',
             providerOptions: {
+                baseUrl: `${env('PUBLIC_URL', 'http://localhost:1337')}/api/media-proxy`,
                 s3Options: {
                     credentials: {
                         accessKeyId: env('AWS_ACCESS_KEY_ID'),
@@ -19,7 +20,6 @@ export default ({ env }) => ({
                         Bucket: env('AWS_BUCKET'),
                     },
                     forcePathStyle: true,
-                    signedUrlExpires: 60 * 60 * 24, // 24 hours
                 },
             },
             actionOptions: {
