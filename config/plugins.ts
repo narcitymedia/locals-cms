@@ -6,11 +6,20 @@ export default ({ env }) => ({
     },
     upload: {
         config: {
-            provider: 'cloudinary',
+            provider: 'aws-s3',
             providerOptions: {
-                cloud_name: env('CLOUDINARY_NAME'),
-                api_key: env('CLOUDINARY_KEY'),
-                api_secret: env('CLOUDINARY_SECRET'),
+                s3Options: {
+                    credentials: {
+                        accessKeyId: env('AWS_ACCESS_KEY_ID'),
+                        secretAccessKey: env('AWS_SECRET_ACCESS_KEY'),
+                    },
+                    endpoint: env('AWS_ENDPOINT'),
+                    region: env('AWS_REGION'),
+                    params: {
+                        Bucket: env('AWS_BUCKET'),
+                    },
+                    forcePathStyle: true,
+                },
             },
             actionOptions: {
                 upload: {},
