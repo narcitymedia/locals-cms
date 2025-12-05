@@ -6,26 +6,15 @@ export default ({ env }) => ({
     },
     upload: {
         config: {
-            provider: 'aws-s3',
+            provider: '@strapi-community/strapi-provider-upload-google-cloud-storage',
             providerOptions: {
-                baseUrl: `${env('PUBLIC_URL', 'http://localhost:1337')}/api/media-proxy`,
-                s3Options: {
-                    credentials: {
-                        accessKeyId: env('AWS_ACCESS_KEY_ID'),
-                        secretAccessKey: env('AWS_SECRET_ACCESS_KEY'),
-                    },
-                    endpoint: env('AWS_ENDPOINT'),
-                    region: env('AWS_REGION'),
-                    params: {
-                        Bucket: env('AWS_BUCKET'),
-                    },
-                    forcePathStyle: true,
-                },
-            },
-            actionOptions: {
-                upload: {},
-                uploadStream: {},
-                delete: {},
+                serviceAccount: env.json('GCS_SERVICE_ACCOUNT'),
+                bucketName: env('GCS_BUCKET_NAME'),
+                basePath: env('GCS_BASE_PATH', 'locals-cms'),
+                baseUrl: env('GCS_BASE_URL'),
+                publicFiles: env.bool('GCS_PUBLIC_FILES', true),
+                uniform: env.bool('GCS_UNIFORM', false),
+                skipBucketCheck: true,
             },
         },
     },
